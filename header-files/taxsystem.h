@@ -11,20 +11,20 @@ class taxSystem;
 }
 
 class taxSystem : public QMainWindow {
-  Q_OBJECT
+    Q_OBJECT
 
-public:
-  explicit taxSystem(QWidget *parent = nullptr);
-  ~taxSystem();
+  public:
+    explicit taxSystem(QWidget *parent = nullptr);
+    ~taxSystem();
 
-private slots:
-  void managementBtn();
-  void inquiryBtn();
+  private slots:
+    void managementBtn();
+    void inquiryBtn();
 
-private:
-  Ui::taxSystem *ui;
-  loginDialog *loginScreen;
-  questioning *questioningScreen;
+  private:
+    Ui::taxSystem *ui;
+    loginDialog *loginScreen;
+    questioning *questioningScreen;
 };
 
-#endif // TAXSYSTEM_H
+#endif  // TAXSYSTEM_H
