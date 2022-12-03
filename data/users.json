@@ -1,0 +1,43 @@
+{
+    "users": [
+        {
+            "1714636915": {
+                "name": "Seymen",
+                "pays": [
+                    {
+                        "2022/12": "Ödenmedi"
+                    }
+                ],
+                "salary": "1500",
+                "surname": "Kalkan",
+                "taxRatio": "150"
+            }
+        },
+        {
+            "1681692777": {
+                "name": "Yiğit",
+                "pays": [
+                    {
+                        "2022/12": "Ödenmedi"
+                    }
+                ],
+                "salary": "1500",
+                "surname": "Aydın",
+                "taxRatio": "15"
+            }
+        },
+        {
+            "846930886": {
+                "name": "Ferit",
+                "pays": [
+                    {
+                        "2022/12": "Ödenmedi"
+                    }
+                ],
+                "salary": "15000",
+                "surname": "Aslan",
+                "taxRatio": "15"
+            }
+        }
+    ]
+}
