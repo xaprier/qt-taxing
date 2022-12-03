@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>managementdialog</class>
+ <widget class="QDialog" name="managementdialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Management System</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>791</width>
+     <height>591</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
+     <widget class="QToolBox" name="toolBox">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="userAdd">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>789</width>
+         <height>517</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Kullanıcı Ekle</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>771</width>
+          <height>461</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QHBoxLayout" name="layoutNameAndSurname">
+           <item>
+            <layout class="QHBoxLayout" name="layoutName">
+             <item>
+              <widget class="QLabel" name="labelName">
+               <property name="text">
+                <string>İsim</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="txtBoxName"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutSurname">
+             <item>
+              <widget class="QLabel" name="labelSurname">
+               <property name="text">
+                <string>Soyisim</string>
+               </property>
+               <property name="buddy">
+                <cstring>txtBoxSurname</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="txtBoxSurname"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="layoutCheckAndButton">
+           <item>
+            <widget class="QLabel" name="labelRatio">
+             <property name="text">
+              <string>Vergi Oranı</string>
+             </property>
+             <property name="buddy">
+              <cstring>txtBoxRatio</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txtBoxTaxRatio">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelSalary">
+             <property name="text">
+              <string>Aylık Gelir</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txtBoxSalary"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="layoutRatioAndSalary">
+           <item>
+            <layout class="QHBoxLayout" name="layoutRatio">
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbPaid">
+               <property name="text">
+                <string>Ödedi</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="layoutSalary">
+             <item>
+              <widget class="QPushButton" name="btnAdd">
+               <property name="text">
+                <string>Ekle</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="userEdit">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>789</width>
+         <height>527</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Kullanıcı Düzenle</string>
+       </attribute>
+       <widget class="QListWidget" name="lWUsers">
+        <property name="geometry">
+         <rect>
+          <x>409</x>
+          <y>2</y>
+          <width>371</width>
+          <height>491</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>2</x>
+          <y>131</y>
+          <width>391</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lEditName">
+             <property name="text">
+              <string>İsim</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lEditSurname">
+             <property name="text">
+              <string>Soyisim</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lEditSalary">
+             <property name="text">
+              <string>Maaş</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lEditTaxRatio">
+             <property name="text">
+              <string>Vergi Oranı</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="lEditCustomerNo">
+             <property name="text">
+              <string>Müşteri No</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="lEditPaid">
+             <property name="text">
+              <string>Bu Ay Ödendi Mi</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="lEditTotal">
+             <property name="text">
+              <string>Toplam Ödeme Miktarı</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QCheckBox" name="cbEdit">
+             <property name="text">
+              <string>Düzenle</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1">
+          <widget class="QGroupBox" name="editInputs">
+           <layout class="QGridLayout" name="editInputLayout">
+            <item row="5" column="0">
+             <widget class="QCheckBox" name="cbEdit_2">
+              <property name="text">
+               <string>Ödendi</string>
+              </property>
+              <property name="tristate">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" alignment="Qt::AlignVCenter">
+             <widget class="QLineEdit" name="txtBoxEditCustomerNo"/>
+            </item>
+            <item row="8" column="0">
+             <widget class="QPushButton" name="applyChangesBtn">
+              <property name="text">
+               <string>Değişiklikleri Uygula</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" alignment="Qt::AlignVCenter">
+             <widget class="QLineEdit" name="txtBoxEditSurname"/>
+            </item>
+            <item row="2" column="0" alignment="Qt::AlignVCenter">
+             <widget class="QLineEdit" name="txtBoxEditSalary"/>
+            </item>
+            <item row="3" column="0" alignment="Qt::AlignVCenter">
+             <widget class="QLineEdit" name="txtBoxEditTaxRatio"/>
+            </item>
+            <item row="0" column="0" alignment="Qt::AlignVCenter">
+             <widget class="QLineEdit" name="txtBoxEditName"/>
+            </item>
+            <item row="6" column="0" alignment="Qt::AlignVCenter">
+             <widget class="QLabel" name="lEditTotalValue">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>3</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>txtBoxName</tabstop>
+  <tabstop>txtBoxSurname</tabstop>
+  <tabstop>txtBoxTaxRatio</tabstop>
+  <tabstop>txtBoxSalary</tabstop>
+  <tabstop>cbPaid</tabstop>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>lWUsers</tabstop>
+  <tabstop>cbEdit</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
