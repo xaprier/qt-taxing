@@ -8,16 +8,16 @@ class questioning;
 }
 
 class questioning : public QDialog {
-  Q_OBJECT
+    Q_OBJECT
 
-public:
-  explicit questioning(QWidget *parent = nullptr);
-  ~questioning();
-private slots:
-  void inquiryClicked();
+  public:
+    explicit questioning(QWidget *parent = nullptr);
+    ~questioning();
+  private slots:
+    void inquiryClicked();
 
-private:
-  Ui::questioning *ui;
+  private:
+    Ui::questioning *ui;
 };
 
-#endif // QUESTIONING_H
+#endif  // QUESTIONING_H

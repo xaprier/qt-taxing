@@ -8,23 +8,23 @@ class managementdialog;
 }
 
 class managementdialog : public QDialog {
-  Q_OBJECT
+    Q_OBJECT
 
-public:
-  explicit managementdialog(QWidget *parent = nullptr);
-  ~managementdialog();
+  public:
+    explicit managementdialog(QWidget *parent = nullptr);
+    ~managementdialog();
 
-private slots:
-  void btnAdd_clicked();
-  void duzenlemeAyarla();
-  void duzenlenebilirMi();
-  void degisiklikleriUygula();
+  private slots:
+    void btnAdd_clicked();
+    void duzenlemeAyarla();
+    void duzenlenebilirMi();
+    void degisiklikleriUygula();
 
-private:
-  Ui::managementdialog *ui;
-  bool kullaniciZatenVar(QString);
-  bool verilerGirildiMi();
-  void kullanicilariEkle();
+  private:
+    Ui::managementdialog *ui;
+    bool kullaniciZatenVar(QString);
+    bool verilerGirildiMi();
+    void kullanicilariEkle();
 };
 
-#endif // managementdialog_H
+#endif  // managementdialog_H
