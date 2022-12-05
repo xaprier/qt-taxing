@@ -87,7 +87,7 @@ void managementdialog::btnAdd_clicked() {
     QJsonObject final_object;
     final_object.insert("users", QJsonValue(jsonArr));
     // seek the file(start from 0 while writing)
-    file.seek(0);
+    file.resize(0);
     file.write(QJsonDocument(final_object).toJson());
     file.close();
     // add the users to the list widget and print to the screen successfully
