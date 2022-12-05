@@ -272,7 +272,8 @@ void managementdialog::degisiklikleriUygula() {
     final_object.insert("users", QJsonValue(jsonArr));
 
     // seek the file(start from 0 while writing)
-    file.seek(0);
+    file.resize(0);
+    qDebug() << final_object;
     file.write(QJsonDocument(final_object).toJson());
     file.close();
 
