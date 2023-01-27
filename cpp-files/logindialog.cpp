@@ -1,18 +1,17 @@
 #include "../header-files/logindialog.h"
 
-#include <QDebug>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonValue>
 #include <QMessageBox>
-#include <QVariantMap>
 
 #include "../design-files/ui_logindialog.h"
 
 loginDialog::loginDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::loginDialog) {
     ui->setupUi(this);
+
+	connect(ui->lgnBtn, &QPushButton::clicked, this, &loginDialog::on_lgnBtn_clicked);
     ui->usernameLine->setFocus();
 }
 

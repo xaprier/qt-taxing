@@ -12,7 +12,7 @@ class managementdialog : public QDialog {
 
   public:
     explicit managementdialog(QWidget *parent = nullptr);
-    ~managementdialog();
+    ~managementdialog() override;
 
   private slots:
     void btnAdd_clicked();
@@ -22,7 +22,7 @@ class managementdialog : public QDialog {
 
   private:
     Ui::managementdialog *ui;
-    bool kullaniciZatenVar(QString);
+    bool kullaniciZatenVar();
     bool verilerGirildiMi();
     void kullanicilariEkle();
 };

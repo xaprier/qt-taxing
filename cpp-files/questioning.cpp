@@ -26,7 +26,7 @@ void questioning::inquiryClicked() {
         return;
     }
     // QJsonDocument::fromJson(file.readAll()).object()["users"].toArray()
-    for (QJsonValue const &user :
+    for (const QJsonValueRef &user :
          QJsonDocument::fromJson(file.readAll()).object()["users"].toArray()) {
         if (user.toObject().keys()[0] == ui->lineEdit->text()) {
             ui->txtBoxEditName->setText(user.toObject()[user.toObject().keys()[0]]

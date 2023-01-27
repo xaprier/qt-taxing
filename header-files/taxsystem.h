@@ -15,7 +15,7 @@ class taxSystem : public QMainWindow {
 
   public:
     explicit taxSystem(QWidget *parent = nullptr);
-    ~taxSystem();
+    ~taxSystem() override;
 
   private slots:
     void managementBtn();

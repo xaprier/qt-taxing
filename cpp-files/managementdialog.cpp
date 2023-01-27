@@ -7,6 +7,7 @@
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QtGlobal>
+#include <QString>
 
 #include "../design-files/ui_managementdialog.h"
 managementdialog::managementdialog(QWidget *parent)
@@ -21,7 +22,9 @@ managementdialog::managementdialog(QWidget *parent)
             &managementdialog::duzenlenebilirMi);
     connect(ui->applyChangesBtn, &QPushButton::clicked, this,
             &managementdialog::degisiklikleriUygula);
+
     kullanicilariEkle();
+	ui->lWUsers->setCurrentRow(0);
     duzenlenebilirMi();
 }
 
@@ -43,7 +46,7 @@ void managementdialog::btnAdd_clicked() {
     }
 
     // there won't be a same name and surname
-    if (kullaniciZatenVar(ui->txtBoxName->text() + ui->txtBoxSurname->text())) {
+    if (kullaniciZatenVar()) {
         QMessageBox::warning(this, "Hata", "Kullanıcı zaten var!");
         return;
     }
@@ -57,7 +60,7 @@ void managementdialog::btnAdd_clicked() {
     }
 
     // unique tax number
-    quint32 number = rand();
+    quint32 number = random();
 
     QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
 
@@ -77,9 +80,9 @@ void managementdialog::btnAdd_clicked() {
                               QString::number(QDate::currentDate().month()),
                           ui->cbPaid->isChecked() ? "Ödendi" : "Ödenmedi"}}})}});
     // while loop until the tax number is unique
-    for (QJsonValue const &a : jsonArr) {
+    for (const QJsonValueRef &a : jsonArr) {
         while (a.toObject().keys().contains(QString::number(number))) {
-            number = rand();
+            number = random();
         }
     }
     // append the object to the jsonArr and append it to the users in json file
@@ -95,7 +98,7 @@ void managementdialog::btnAdd_clicked() {
     QMessageBox::information(this, "Başarılı", "Kullanıcı başarı ile eklendi");
 }
 
-bool managementdialog::kullaniciZatenVar(QString a) {
+bool managementdialog::kullaniciZatenVar() {
     QFile file("../data/users.json");
     if (!file.open(QIODevice::ReadWrite)) {
         qDebug() << "Error, Cannot open the file.";
@@ -105,14 +108,14 @@ bool managementdialog::kullaniciZatenVar(QString a) {
     QJsonArray jsonArr =
         QJsonDocument::fromJson(file.readAll()).object()["users"].toArray();
 
-    bool find = 0;
+    bool find = false;
 
     for (QJsonValue a : jsonArr) {
         if (a.toObject()[a.toObject().keys()[0]].toObject()["name"] ==
                 ui->txtBoxName->text() &&
             a.toObject()[a.toObject().keys()[0]].toObject()["surname"] ==
                 ui->txtBoxSurname->text()) {
-            find = 1;
+            find = true;
         }
     }
     file.close();
@@ -160,11 +163,12 @@ void managementdialog::duzenlemeAyarla() {
         return;
     }
 
-    for (QJsonValue const &user :
+    for (const QJsonValueRef &user :
          QJsonDocument::fromJson(file.readAll()).object()["users"].toArray()) {
         if (user.toObject().keys()[0] ==
-            ui->lWUsers->currentItem()->text().first(
-                ui->lWUsers->currentItem()->text().indexOf('-'))) {
+            QString::fromStdString(
+				ui->lWUsers->currentItem()->text().toStdString().substr(0, ui->lWUsers->currentItem()->text().indexOf('-')))
+				) {
             ui->txtBoxEditName->setText(user.toObject()[user.toObject().keys()[0]]
                                             .toObject()["name"]
                                             .toString());
@@ -237,10 +241,11 @@ void managementdialog::degisiklikleriUygula() {
     QJsonObject editedObj;
 
     // find the edited value in array and edit the json object with edited values
-    for (const QJsonValue &user : jsonArr) {
+    for (const QJsonValueRef &user : jsonArr) {
         if (user.toObject().keys()[0] ==
-            ui->lWUsers->currentItem()->text().first(
-                ui->lWUsers->currentItem()->text().indexOf('-'))) {
+			QString::fromStdString(
+				ui->lWUsers->currentItem()->text().toStdString().substr(0, ui->lWUsers->currentItem()->text().indexOf('-')))
+			) {
             editedObj.insert(
                 ui->txtBoxEditCustomerNo->text(),
                 QJsonObject{
@@ -259,8 +264,9 @@ void managementdialog::degisiklikleriUygula() {
     // clear the edited object on json array
     for (auto it = jsonArr.begin(); it != jsonArr.end(); ++it) {
         QJsonObject obj = (*it).toObject();
-        if (obj.keys()[0] == ui->lWUsers->currentItem()->text().first(
-                                 ui->lWUsers->currentItem()->text().indexOf('-'))) {
+        if (obj.keys()[0] == QString::fromStdString(
+			ui->lWUsers->currentItem()->text().toStdString().substr(0, ui->lWUsers->currentItem()->text().indexOf('-')))
+			) {
             jsonArr.erase(it);
             break;
         }
