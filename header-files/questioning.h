@@ -12,7 +12,7 @@ class questioning : public QDialog {
 
   public:
     explicit questioning(QWidget *parent = nullptr);
-    ~questioning();
+    ~questioning() override;
   private slots:
     void inquiryClicked();
 

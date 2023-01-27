@@ -38,6 +38,19 @@
                 "surname": "Kalkan",
                 "taxRatio": "15"
             }
+        },
+        {
+            "1804289383": {
+                "name": "Seymen",
+                "pays": [
+                    {
+                        "2023/1": "Ödendi"
+                    }
+                ],
+                "salary": "17500",
+                "surname": "Obur",
+                "taxRatio": "25"
+            }
         }
     ]
 }

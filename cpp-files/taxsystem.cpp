@@ -1,9 +1,9 @@
 #include "../header-files/taxsystem.h"
 
 #include <QMessageBox>
+#include <QDebug>
 
 #include "../design-files/ui_taxsystem.h"
-#include "../header-files/logindialog.h"
 
 taxSystem::taxSystem(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::taxSystem) {
