@@ -7,7 +7,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_PREFIX_PATH "~/Qt/6.4.0/gcc_64/lib/cmake")
+set(CMAKE_PREFIX_PATH "~/Qt/6.4.1/gcc_64/lib/cmake")
 
 set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/)
 set(EXECUTABLE_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)
