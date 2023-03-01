@@ -20,14 +20,14 @@
       <item row="0" column="0">
        <widget class="QPushButton" name="inquiryTaxBtn">
         <property name="text">
-         <string>Vergi Sorgulama</string>
+         <string>Tax Querying</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="managementBtn">
         <property name="text">
-         <string>Yönetim Ekranı</string>
+         <string>Management Screen</string>
         </property>
        </widget>
       </item>
