@@ -14,28 +14,27 @@ taxSystem::taxSystem(QWidget *parent)
 
     connect(ui->inquiryTaxBtn, &QPushButton::clicked, this,
             &taxSystem::inquiryBtn);
+
+	questioningScreen = new questioning;
+	loginScreen = new loginDialog;
 }
 
-taxSystem::~taxSystem() { delete ui; }
+taxSystem::~taxSystem() { delete ui; delete questioningScreen; delete loginScreen; }
 
 void taxSystem::inquiryBtn() {
-    questioningScreen = new questioning;
     this->hide();
     questioningScreen->setModal(true);
     if (questioningScreen->exec() == QMessageBox::Rejected) {
         qDebug() << "Questioning Dialog closed";
         this->show();
     }
-    delete questioningScreen;
 }
 
 void taxSystem::managementBtn() {
-    loginScreen = new loginDialog;
     this->hide();
-    loginScreen->setModal(true);
+	loginScreen->setModal(true);
     if (loginScreen->exec() == QMessageBox::Rejected) {
         qDebug() << "Login Dialog closed";
         this->show();
     }
-    delete loginScreen;
 }

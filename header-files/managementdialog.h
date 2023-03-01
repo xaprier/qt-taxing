@@ -15,16 +15,16 @@ class managementdialog : public QDialog {
     ~managementdialog() override;
 
   private slots:
-    void btnAdd_clicked();
-    void duzenlemeAyarla();
-    void duzenlenebilirMi();
-    void degisiklikleriUygula();
+    void btnAdd();
+    void setEditing();
+    void isItEditable();
+    void applyChanges();
 
   private:
     Ui::managementdialog *ui;
-    bool kullaniciZatenVar();
-    bool verilerGirildiMi();
-    void kullanicilariEkle();
+    bool userExists();
+    bool dataEntered();
+    void addUsers();
 };
 
 #endif  // managementdialog_H

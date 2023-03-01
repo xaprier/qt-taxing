@@ -11,13 +11,14 @@ loginDialog::loginDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::loginDialog) {
     ui->setupUi(this);
 
-	connect(ui->lgnBtn, &QPushButton::clicked, this, &loginDialog::on_lgnBtn_clicked);
+	connect(ui->lgnBtn, &QPushButton::clicked, this, &loginDialog::onLogin);
     ui->usernameLine->setFocus();
+	mDialog = new managementdialog();
 }
 
-loginDialog::~loginDialog() { delete ui; }
+loginDialog::~loginDialog() { delete ui; delete mDialog; }
 
-void loginDialog::on_lgnBtn_clicked() {
+void loginDialog::onLogin() {
     // file operation
     QFile file("../data/logins.json");
     if (!file.open(QFile::ReadOnly)) {
@@ -26,26 +27,22 @@ void loginDialog::on_lgnBtn_clicked() {
     }
     // data entered?
     if (ui->usernameLine->text().isEmpty() || ui->passwdLine->text().isEmpty()) {
-        QMessageBox::warning(this, "Hata",
-                             "Şifre ve kullanıcı adı girilmesi zorunlud"
-                             "ur!");
+        QMessageBox::warning(this, "Login",
+                             "Please enter your username and password.");
+		file.close();
         return;
     }
 
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
-    if (jsonDoc.object()
-            .value(ui->usernameLine->text())
-            .toObject()
-            .value("password")
-            .toString() == ui->passwdLine->text()) {
-        QMessageBox::information(this, "Login", "Giriş başarılı");
-        this->hide();
-        mDialog = new managementdialog(this);
-        if (mDialog->exec() == QMessageBox::Rejected) {
-            qDebug() << "Login Dialog closed";
-            this->show();
-        }
-    } else {
-        QMessageBox::warning(this, "Error", "Hatalı kullanıcı adı veya şifre.");
-    }
+	QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+	if (jsonDoc.object().find(ui->usernameLine->text())->toObject()["password"].toString() == ui->passwdLine->text()) {
+		QMessageBox::information(this, "Login", "Login successful");
+		this->hide();
+		if (mDialog->exec() == QMessageBox::Rejected) {
+			qDebug() << "Login Dialog closed";
+			this->show();
+		}
+	} else {
+		QMessageBox::warning(this, "Login", "Login failed");
+	}
+	file.close();
 }
