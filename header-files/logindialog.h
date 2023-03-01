@@ -18,7 +18,7 @@ class loginDialog : public QDialog {
     explicit loginDialog(QWidget *parent = nullptr);
     ~loginDialog() override;
   private slots:
-    void on_lgnBtn_clicked();
+    void onLogin();
 
   private:
     Ui::loginDialog *ui;

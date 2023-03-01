@@ -15,22 +15,22 @@ managementdialog::managementdialog(QWidget *parent)
     ui->setupUi(this);
     ui->toolBox->setCurrentIndex(0);
     connect(ui->btnAdd, &QPushButton::clicked, this,
-            &managementdialog::btnAdd_clicked);
+            &managementdialog::btnAdd);
     connect(ui->lWUsers, &QListWidget::currentRowChanged, this,
-            &managementdialog::duzenlemeAyarla);
+            &managementdialog::setEditing);
     connect(ui->cbEdit, &QCheckBox::stateChanged, this,
-            &managementdialog::duzenlenebilirMi);
+            &managementdialog::isItEditable);
     connect(ui->applyChangesBtn, &QPushButton::clicked, this,
-            &managementdialog::degisiklikleriUygula);
+            &managementdialog::applyChanges);
 
-    kullanicilariEkle();
+	addUsers();
 	ui->lWUsers->setCurrentRow(0);
-    duzenlenebilirMi();
+	isItEditable();
 }
 
 managementdialog::~managementdialog() { delete ui; }
 
-void managementdialog::btnAdd_clicked() {
+void managementdialog::btnAdd() {
     QFile file("../data/users.json");
 
     // file check
@@ -40,13 +40,13 @@ void managementdialog::btnAdd_clicked() {
     }
 
     // the data's entered?
-    if (!verilerGirildiMi()) {
+    if (!dataEntered()) {
         QMessageBox::warning(this, "Hata", "Lütfen bütün boşlukları doldurunuz");
         return;
     }
 
     // there won't be a same name and surname
-    if (kullaniciZatenVar()) {
+    if (userExists()) {
         QMessageBox::warning(this, "Hata", "Kullanıcı zaten var!");
         return;
     }
@@ -94,11 +94,11 @@ void managementdialog::btnAdd_clicked() {
     file.write(QJsonDocument(final_object).toJson());
     file.close();
     // add the users to the list widget and print to the screen successfully
-    kullanicilariEkle();
+	addUsers();
     QMessageBox::information(this, "Başarılı", "Kullanıcı başarı ile eklendi");
 }
 
-bool managementdialog::kullaniciZatenVar() {
+bool managementdialog::userExists() {
     QFile file("../data/users.json");
     if (!file.open(QIODevice::ReadWrite)) {
         qDebug() << "Error, Cannot open the file.";
@@ -122,14 +122,14 @@ bool managementdialog::kullaniciZatenVar() {
     return find;
 }
 
-bool managementdialog::verilerGirildiMi() {
+bool managementdialog::dataEntered() {
     return !ui->txtBoxName->text().isEmpty() &&
            !ui->txtBoxSurname->text().isEmpty() &&
            !ui->txtBoxSalary->text().isEmpty() &&
            !ui->txtBoxTaxRatio->text().isEmpty();
 }
 
-void managementdialog::kullanicilariEkle() {
+void managementdialog::addUsers() {
     // clear the list widget and read the file and add the all users to the widget
     ui->lWUsers->clear();
     QFile file("../data/users.json");
@@ -152,7 +152,7 @@ void managementdialog::kullanicilariEkle() {
     file.close();
 }
 
-void managementdialog::duzenlemeAyarla() {
+void managementdialog::setEditing() {
     if (ui->lWUsers->selectedItems().isEmpty())
         return;
 
@@ -220,12 +220,12 @@ void managementdialog::duzenlemeAyarla() {
     file.close();
 }
 
-void managementdialog::duzenlenebilirMi() {
+void managementdialog::isItEditable() {
     (!ui->cbEdit->isChecked()) ? ui->editInputs->setEnabled(false)
                                : ui->editInputs->setEnabled(true);
 }
 
-void managementdialog::degisiklikleriUygula() {
+void managementdialog::applyChanges() {
     QFile file("../data/users.json");
 
     if (!file.open(QIODevice::ReadWrite)) {
@@ -286,5 +286,5 @@ void managementdialog::degisiklikleriUygula() {
     // reread the file and add the items to the list widget and print the screen
     // successfully
     QMessageBox::information(this, "Başarılı", "Kullanıcı başarı ile düzenlendi");
-    kullanicilariEkle();
+	addUsers();
 }
