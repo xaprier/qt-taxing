@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Giriş Ekranı</string>
+   <string>Login Screen</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Vergi Sistemi Giriş Ekranı</string>
+    <string>Tax System Login Screen</string>
    </property>
   </widget>
   <widget class="QPushButton" name="lgnBtn">
@@ -52,7 +52,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Kullanıcı Adı</string>
+       <string>Username</string>
       </property>
       <property name="buddy">
        <cstring>usernameLine</cstring>
@@ -65,7 +65,7 @@
     <item row="1" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>Şifre</string>
+       <string>Password</string>
       </property>
      </widget>
     </item>
