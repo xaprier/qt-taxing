@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDebug>
 #include <QMessageBox>
 
 #include "../design-files/ui_logindialog.h"

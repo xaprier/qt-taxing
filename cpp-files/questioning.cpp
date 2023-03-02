@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QDebug>
+#include <QDate>
 #include <QJsonObject>
 #include <QJsonValue>
 
