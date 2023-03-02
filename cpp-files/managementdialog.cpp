@@ -4,9 +4,11 @@
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QDebug>
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QtGlobal>
+#include <QRandomGenerator>
 #include <QString>
 
 #include "../design-files/ui_managementdialog.h"
@@ -60,7 +62,9 @@ void managementdialog::btnAdd() {
     }
 
     // unique tax number
-    quint32 number = random();
+    QRandomGenerator random;
+    random = QRandomGenerator::securelySeeded();
+    quint32 number = random.generate();
 
     QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
 
