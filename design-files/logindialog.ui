@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Login Screen</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/icon.png</normaloff>:/resources/icon.png</iconset>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -84,6 +88,8 @@
   <tabstop>passwdLine</tabstop>
   <tabstop>lgnBtn</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Management System</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/icon.png</normaloff>:/resources/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="geometry">
     <rect>
@@ -34,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>789</width>
-         <height>517</height>
+         <height>527</height>
         </rect>
        </property>
        <attribute name="label">
@@ -323,6 +327,8 @@
   <tabstop>lWUsers</tabstop>
   <tabstop>cbEdit</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
