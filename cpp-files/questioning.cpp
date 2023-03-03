@@ -21,9 +21,9 @@ questioning::questioning(QWidget *parent)
 questioning::~questioning() { delete ui; }
 
 void questioning::inquiryClicked() {
-    QFile file("../data/users.json");
+    QFile file("data/users.json");
 
-    if (!file.open(QIODevice::ReadWrite)) {
+    if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Error, Cannot open the file.";
         return;
     }

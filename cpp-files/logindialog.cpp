@@ -21,7 +21,7 @@ loginDialog::~loginDialog() { delete ui; delete mDialog; }
 
 void loginDialog::onLogin() {
     // file operation
-    QFile file("../data/logins.json");
+    QFile file("data/logins.json");
     if (!file.open(QFile::ReadOnly)) {
         qDebug() << "Error, Cannot open the file.";
         return;
