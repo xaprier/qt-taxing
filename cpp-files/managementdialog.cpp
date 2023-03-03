@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QtGlobal>
 #include <QRandomGenerator>
+#include <QShowEvent>
 #include <QString>
 
 #include "../design-files/ui_managementdialog.h"
@@ -24,16 +25,20 @@ managementdialog::managementdialog(QWidget *parent)
             &managementdialog::isItEditable);
     connect(ui->applyChangesBtn, &QPushButton::clicked, this,
             &managementdialog::applyChanges);
-
-	addUsers();
-	ui->lWUsers->setCurrentRow(0);
-	isItEditable();
+    connect(ui->toolBox, &QToolBox::currentChanged, this, &managementdialog::toolBoxChanged);
 }
 
 managementdialog::~managementdialog() { delete ui; }
 
+void managementdialog::toolBoxChanged() {
+    if (ui->toolBox->currentWidget() != ui->userEdit) return;
+    addUsers();
+    ui->lWUsers->setCurrentRow(0);
+    isItEditable();
+}
+
 void managementdialog::btnAdd() {
-    QFile file("../data/users.json");
+    QFile file("data/users.json");
 
     // file check
     if (!file.open(QIODevice::ReadWrite)) {
@@ -98,12 +103,12 @@ void managementdialog::btnAdd() {
     file.write(QJsonDocument(final_object).toJson());
     file.close();
     // add the users to the list widget and print to the screen successfully
-	addUsers();
+    //addUsers();
     QMessageBox::information(this, "Başarılı", "Kullanıcı başarı ile eklendi");
 }
 
 bool managementdialog::userExists() {
-    QFile file("../data/users.json");
+    QFile file("data/users.json");
     if (!file.open(QIODevice::ReadWrite)) {
         qDebug() << "Error, Cannot open the file.";
         return -1;
@@ -136,8 +141,8 @@ bool managementdialog::dataEntered() {
 void managementdialog::addUsers() {
     // clear the list widget and read the file and add the all users to the widget
     ui->lWUsers->clear();
-    QFile file("../data/users.json");
-    if (!file.open(QIODevice::ReadWrite)) {
+    QFile file("data/users.json");
+    if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Error, Cannot open the file.";
         return;
     }
@@ -151,7 +156,7 @@ void managementdialog::addUsers() {
             a.toObject()[a.toObject().keys()[0]].toObject()["name"].toString() +
             " " +
             a.toObject()[a.toObject().keys()[0]].toObject()["surname"].toString());
-    }
+    }    
 
     file.close();
 }
@@ -160,9 +165,9 @@ void managementdialog::setEditing() {
     if (ui->lWUsers->selectedItems().isEmpty())
         return;
 
-    QFile file("../data/users.json");
+    QFile file("data/users.json");
 
-    if (!file.open(QIODevice::ReadWrite)) {
+    if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Error, Cannot open the file.";
         return;
     }
@@ -230,7 +235,7 @@ void managementdialog::isItEditable() {
 }
 
 void managementdialog::applyChanges() {
-    QFile file("../data/users.json");
+    QFile file("data/users.json");
 
     if (!file.open(QIODevice::ReadWrite)) {
         qDebug() << "Error, Cannot open the file.";

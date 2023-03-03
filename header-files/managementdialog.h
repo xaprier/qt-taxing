@@ -2,6 +2,7 @@
 #define managementdialog_H
 
 #include <QDialog>
+#include <QShowEvent>
 
 namespace Ui {
 class managementdialog;
@@ -25,6 +26,7 @@ class managementdialog : public QDialog {
     bool userExists();
     bool dataEntered();
     void addUsers();
+    void toolBoxChanged();
 };
 
 #endif  // managementdialog_H
