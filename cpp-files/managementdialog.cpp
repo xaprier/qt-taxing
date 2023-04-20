@@ -172,60 +172,21 @@ void managementdialog::setEditing() {
         return;
     }
 
-    for (const QJsonValueRef &user :
-         QJsonDocument::fromJson(file.readAll()).object()["users"].toArray()) {
-        if (user.toObject().keys()[0] ==
-            QString::fromStdString(
-				ui->lWUsers->currentItem()->text().toStdString().substr(0, ui->lWUsers->currentItem()->text().indexOf('-')))
-				) {
-            ui->txtBoxEditName->setText(user.toObject()[user.toObject().keys()[0]]
-                                            .toObject()["name"]
-                                            .toString());
-            ui->txtBoxEditSurname->setText(user.toObject()[user.toObject().keys()[0]]
-                                               .toObject()["surname"]
-                                               .toString());
-            ui->txtBoxEditSalary->setText(user.toObject()[user.toObject().keys()[0]]
-                                              .toObject()["salary"]
-                                              .toString());
-            ui->txtBoxEditTaxRatio->setText(user.toObject()[user.toObject().keys()[0]]
-                                                .toObject()["taxRatio"]
-                                                .toString());
+    QJsonObject muser = QJsonDocument::fromJson(file.readAll())
+                                   .object()["users"]
+                                   .toArray()[ui->lWUsers->currentRow()].toObject();
 
-            ui->txtBoxEditCustomerNo->setText(user.toObject().keys()[0]);
+    // set the line edits to the selected user's data
+    ui->txtBoxEditName->setText(muser[muser.keys()[0]].toObject()["name"].toString());
+    ui->txtBoxEditSurname->setText(muser[muser.keys()[0]].toObject()["surname"].toString());
+    ui->txtBoxEditSalary->setText(muser[muser.keys()[0]].toObject()["salary"].toString());
+    ui->txtBoxEditTaxRatio->setText(muser[muser.keys()[0]].toObject()["taxRatio"].toString());
+    ui->txtBoxEditCustomerNo->setText(muser.keys()[0]);
+    // this month is paid or not
+    ui->cbEdit_2->setChecked(muser[muser.keys()[0]].toObject()["pays"].toArray()[0].toObject()[QString::number(QDate::currentDate().year()) + "/" + QString::number(QDate::currentDate().month())].toString() == "Ödendi" ? true : false);
+    // amount of tax
+    ui->lEditTotalValue->setText(QString::number(muser[muser.keys()[0]].toObject()["salary"].toString().toDouble() * muser[muser.keys()[0]].toObject()["taxRatio"].toString().toDouble() / 100));
 
-            ui->cbEdit_2->setChecked(
-                (user.toObject()[user.toObject().keys()[0]]
-                     .toObject()["pays"]
-                     .toArray()
-                     .last()
-                     .toObject()
-                     .keys()[0] ==
-                 QString::number(QDate::currentDate().year()) + "/" +
-                     QString::number(QDate::currentDate().month())) &&
-                user.toObject()[user.toObject().keys()[0]]
-                        .toObject()["pays"]
-                        .toArray()
-                        .last()
-                        .toObject()
-                        .value(user.toObject()[user.toObject().keys()[0]]
-                                   .toObject()["pays"]
-                                   .toArray()
-                                   .last()
-                                   .toObject()
-                                   .keys()[0])
-                        .toString() == "Ödendi");
-            ui->lEditTotalValue->setText(
-                QString::number((user.toObject()[user.toObject().keys()[0]]
-                                     .toObject()["taxRatio"]
-                                     .toString()
-                                     .toDouble() /
-                                 100) *
-                                user.toObject()[user.toObject().keys()[0]]
-                                    .toObject()["salary"]
-                                    .toString()
-                                    .toDouble()));
-        }
-    }
     file.close();
 }
 

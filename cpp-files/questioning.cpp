@@ -8,6 +8,7 @@
 #include <QDate>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QMessageBox>
 
 #include "../design-files/ui_questioning.h"
 
@@ -27,57 +28,31 @@ void questioning::inquiryClicked() {
         qDebug() << "Error, Cannot open the file.";
         return;
     }
-    // QJsonDocument::fromJson(file.readAll()).object()["users"].toArray()
-    for (const QJsonValueRef &user :
-         QJsonDocument::fromJson(file.readAll()).object()["users"].toArray()) {
+    QJsonArray users = QJsonDocument::fromJson(file.readAll()).object()["users"].toArray();
+    QJsonObject my_user;
+    for (const auto &user : users) {
         if (user.toObject().keys()[0] == ui->lineEdit->text()) {
-            ui->txtBoxEditName->setText(user.toObject()[user.toObject().keys()[0]]
-                                            .toObject()["name"]
-                                            .toString());
-            ui->txtBoxEditSurname->setText(user.toObject()[user.toObject().keys()[0]]
-                                               .toObject()["surname"]
-                                               .toString());
-            ui->txtBoxEditSalary->setText(user.toObject()[user.toObject().keys()[0]]
-                                              .toObject()["salary"]
-                                              .toString());
-            ui->txtBoxEditTaxRatio->setText(user.toObject()[user.toObject().keys()[0]]
-                                                .toObject()["taxRatio"]
-                                                .toString());
-
-            ui->txtBoxEditCustomerNo->setText(user.toObject().keys()[0]);
-
-            ui->cbEdit_2->setChecked(
-                (user.toObject()[user.toObject().keys()[0]]
-                     .toObject()["pays"]
-                     .toArray()
-                     .last()
-                     .toObject()
-                     .keys()[0] ==
-                 QString::number(QDate::currentDate().year()) + "/" +
-                     QString::number(QDate::currentDate().month())) &&
-                user.toObject()[user.toObject().keys()[0]]
-                        .toObject()["pays"]
-                        .toArray()
-                        .last()
-                        .toObject()
-                        .value(user.toObject()[user.toObject().keys()[0]]
-                                   .toObject()["pays"]
-                                   .toArray()
-                                   .last()
-                                   .toObject()
-                                   .keys()[0])
-                        .toString() == "Ödendi");
-            ui->lEditTotalValue->setText(
-                QString::number((user.toObject()[user.toObject().keys()[0]]
-                                     .toObject()["taxRatio"]
-                                     .toString()
-                                     .toDouble() /
-                                 100) *
-                                user.toObject()[user.toObject().keys()[0]]
-                                    .toObject()["salary"]
-                                    .toString()
-                                    .toDouble()));
+            my_user = user.toObject();
+            break;
         }
     }
+
+    qDebug() << my_user;
+
+    if (my_user.isEmpty()) {
+        QMessageBox::warning(this, "Hata", "Kullanıcı bulunamadı!");
+        return;
+    }
+
+    // set the data
+    ui->txtBoxEditName->setText(my_user[my_user.keys()[0]].toObject()["name"].toString());
+    ui->txtBoxEditSurname->setText(my_user[my_user.keys()[0]].toObject()["surname"].toString());
+    ui->txtBoxEditSalary->setText(my_user[my_user.keys()[0]].toObject()["salary"].toString());
+    ui->txtBoxEditTaxRatio->setText(my_user[my_user.keys()[0]].toObject()["taxRatio"].toString());
+    ui->txtBoxEditCustomerNo->setText(my_user.keys()[0]);
+    // this month is paid or not
+    ui->cbEdit_2->setChecked(my_user[my_user.keys()[0]].toObject()["pays"].toArray()[0].toObject()[QString::number(QDate::currentDate().year()) + "/" + QString::number(QDate::currentDate().month())].toString() == "Ödendi" ? true : false);
+    // amount of tax
+    ui->lEditTotalValue->setText(QString::number(my_user[my_user.keys()[0]].toObject()["salary"].toString().toDouble() * my_user[my_user.keys()[0]].toObject()["taxRatio"].toString().toDouble() / 100));
     file.close();
 }
